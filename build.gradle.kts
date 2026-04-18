@@ -17,36 +17,42 @@ repositories {
 	mavenCentral()
 }
 
-extra["springCloudVersion"] = "2025.0.2"
-extra["tanzuScgExtensionsVersion"] = "1.0.1"
-
 dependencies {
+	// Metrics
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+	// Cache
 	implementation("org.springframework.boot:spring-boot-starter-cache")
+
+	// DB
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.vmware.tanzu.springcloudgateway.extensions:access-control")
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5")
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.16")
-	implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux")
-	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
+
+	// Security
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+
+	// Validation
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	// Web
+	implementation("org.springframework.boot:spring-boot-starter-web")
+
+	// Swagger
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.16")
+
+	// Lombok
+	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
+
+	// Test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5")
 	testImplementation("org.springframework.security:spring-security-test")
 	testCompileOnly("org.projectlombok:lombok")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testAnnotationProcessor("org.projectlombok:lombok")
-}
-
-dependencyManagement {
-	imports {
-		mavenBom("com.vmware.tanzu.springcloudgateway.extensions:extensions-bom:${property("tanzuScgExtensionsVersion")}")
-		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-	}
 }
 
 tasks.withType<Test> {
